@@ -17,7 +17,7 @@
 </head>
 
 <body>
-  <div id="app" class="theme-dark">
+  <div id="app" class="theme-white">
     <div class="panel panel-left panel-cover">
       <div class="view panel-view"></div>
     </div>
