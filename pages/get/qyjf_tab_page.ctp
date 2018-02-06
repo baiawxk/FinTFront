@@ -67,6 +67,12 @@
 <!--Trade  Daniel-->
 
             <!--<iframe src="http://tools.fintgroup.com/" frameborder="0" width="100%" height="100%"></iframe>-->
+
+
+
+
+
+
             <div class="block">
                 <div class="searchbar-backdrop"></div>
                 <form class="searchbar">
@@ -81,8 +87,10 @@
                 </form>
               </div>
 
-             <div class="card data-table">
 
+
+
+             <div class="card data-table">
 
                 <table>
 
@@ -164,28 +172,29 @@
 </head>
 
 <body>
- 
+
+
  <div class="block">
 
-<div class="slidecontainer">
-  <input type="range" min="500" max="50000" value="10000" class="slider" id="myRange">
+<div class="block-title">购买金额:</div>
+<div class="list simple-list">
+  <ul>
+    <li>
+ 
+      <div class="item-cell flex-shrink-3">
+        <!-- range slider, enable labels -->
+        <div class="range-slider range-slider-init color-orange" data-label="true">
+          <input type="range" min="500" max="50000" step="100" value="500">
+        </div>
+      </div>
+    
+    </li>
+  </ul>
+</div>
 
-  <p>购买金额: <h3 id="tradevolume"></h3></p>
-  <h3>aaa</h3>
 
 </div>
 
-</div>
-
-<script>
-var slider = document.getElementById("myRange");
-var output = document.getElementById("tradevolume");
-output.innerHTML = slider.value;
-
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
-</script>
 
 </body>
 </html>
@@ -200,28 +209,38 @@ slider.oninput = function() {
 
                   <div class="row">
                     <div class="col-sm-3"></div>
-                    <div class="col-sm-3"><a href="#"  class="col button button-fill" @click="login"> &nbsp &nbsp 购买 &nbsp &nbsp </a></div>
-                    <div class="col-sm-3"><a href="#" class="col button" >收益计算</a></div>
+                    <div class="col-sm-3"><a href="#"  class="col button button-fill" @click="confirmterms"> &nbsp &nbsp 购买 &nbsp &nbsp </a></div>
+                    <div class="col-sm-3"><a href="#"  class="col button button-fill" @click="login2"> 收益计算</a></div>
 
                     <div class="col-sm-3"> </div>
                   </div>
           </div>
 
 
+
           <div class="block">
 
                     <div class="col-sm-3"></div>
-                    <div class="col-sm-3"><a href="/about" >实例说明及交易须知</a> </div>
+                    
+                    <div class="col-sm-3"><a class="link popover-open" href="#" data-popover=".popover-about">实例说明及交易须知</a></div>
                     <div class="col-sm-3"></div>
                     <div class="col-sm-3"></div>
+
+
+    <div class="popover popover-about">
+    <div class="popover-inner">
+      <div class="block">
+        <p>实例说明及交易须知</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac diam ac quam euismod porta vel a nunc. Quisque sodales scelerisque est, at porta justo cursus ac.</p>
+      </div>
+    </div>
+  </div>
   
           </div>
 
 
 
-
-
- <div class="card data-table">
+ <div class="card data-table" style="display: none;" id="ratetable">
 
             <table>
 
@@ -432,17 +451,30 @@ slider.oninput = function() {
     </div>
     <div class="toolbar tabbar tabbar-labels">
       <div class="toolbar-inner">
-        <a href="#page1" class="tab-link tab-link-active"> <i class="icon tabbar-demo-icon-3"></i><span class="tabbar-label">账户</span></a>
+        <a href="#page1" class="tab-link tab-link-active"> <i class="icon tabbar-demo-icon-3"></i><span class="tabbar-label">个人</span></a>
         <a href="#page2" class="tab-link"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">交易</span></a>
         <a href="#page3" class="tab-link"> <i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">持仓</span></a>
-        <a href="#page4" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">个人</span></a>
+        <a href="#page4" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">账户</span></a>
       </div>
     </div>
   </div>
 </template>
+
+
+
+
+
+
 <script>
+
+
 return {
-  methods: {
+  methods: {confirmterms:function() {
+ 
+        qAlert("请确认");
+        return ;
+      
+    },
     initPersonInfo: function() {
       console.log('initPersonInfo');
       const self = this;
@@ -488,23 +520,10 @@ return {
 
 </script>
 
-<script>
-return {
-  methods: {
 
-    login:function() {
- 
-        qAlert("请输入手机号码");
-        return ;
-      
-    }
-  },
-  on: {
-    pageInit: function() {
-     
-    }
-  }
-}
 
-</script>
+
+
+
+
 
