@@ -17,54 +17,27 @@
 </head>
 
 <body>
-  <div id="app" class="theme-white">
+  <div id="app" class1="theme-white">
     <div class="panel panel-left panel-cover">
       <div class="view panel-view"></div>
     </div>
     <div class="views">
-      <div class="view view-main" data-name="main" data-url="/tabPage">
-      </div>
       <div class="login-screen">
-        <!-- Default view-page layout -->
-        <div class="view">
-          <div class="page">
-            <!-- page-content has additional login-screen content -->
-            <div class="page-content login-screen-content">
-              <div class="login-screen-title">My App</div>
-              <!-- Login form -->
-              <form>
-                <div class="list">
-                  <ul>
-                    <li class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Username</div>
-                        <div class="item-input-wrap">
-                          <input type="text" name="username" placeholder="Username">
-                          <span class="input-clear-button"></span>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Password</div>
-                        <div class="item-input-wrap">
-                          <input type="password" name="password" placeholder="Password">
-                          <span class="input-clear-button"></span>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div class="list">
-                  <ul>
-                    <li>
-                      <a href="#" class="item-link list-button">Sign In</a>
-                    </li>
-                  </ul>
-                  <div class="block-footer">Some text with login information.</div>
-                </div>
-              </form>
-            </div>
+        <div class="view view-init" data-url="/login">
+        </div>
+      </div>
+      <div class="view view-main" data-name="main">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="center">权盈金服</div>
+          </div>
+        </div>
+        <div class="toolbar tabbar tabbar-labels">
+          <div class="toolbar-inner">
+            <a href="/tabPage" id="tabBtn1" class="tab-link"> <i class="icon tabbar-demo-icon-3"></i><span class="tabbar-label">个人</span></a>
+            <a href="/tradeIndex" id="tabBtn2" class="tab-link"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">交易</span></a>
+            <a href="/StockIndex" id="tabBtn3" class="tab-link"> <i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">持仓</span></a>
+            <a href="/AccountIndex" id="tabBtn4" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">账户</span></a>
           </div>
         </div>
       </div>
@@ -83,9 +56,24 @@
   var app = new Framework7({
     root: '#app',
     theme: "ios",
+    view: {
+      iosDynamicNavbar: false,
+    },
     routes: [{
         path: '/tabPage',
-        componentUrl: '/pages/get/qyjf_tab_page',
+        componentUrl: '/pages/get/qyjf_tab_index',
+      },
+      {
+        path: '/tradeIndex',
+        componentUrl: '/pages/get/qyjf_tab_trade',
+      },
+      {
+        path: '/StockIndex',
+        componentUrl: '/pages/get/qyjf_tab_stocks',
+      },
+      {
+        path: '/AccountIndex',
+        componentUrl: '/pages/get/qyjf_tab_account',
       },
       {
         path: '/checkLogin',
@@ -100,10 +88,19 @@
 
   // Export selectors engine
   var $$ = Dom7;
-  var mainView = app.views.create('.view-main', {
-    url: '/checkLogin'
-  });
 
+  $$('.view-main').hide();
+  var mainView = app.views.create('.view-main');
+  isLogin()
+    .then(function() {
+      mainView.router.navigate('/tabPage');
+    }, function() {
+      // mainView.router.navigate('/tabPage');
+      app.loginScreen.open('.login-screen');
+    })
+  setTimeout(function() {
+    $$('.view-main').show();
+  }, 1000);
 
   </script>
 </body>

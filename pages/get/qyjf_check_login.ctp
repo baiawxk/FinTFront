@@ -11,6 +11,7 @@ return {
         isLogin().then(function() {
           mainView.router.navigate('/tabPage');
         },function() {
+          // mainView.router.navigate('/tabPage');
           mainView.router.navigate('/login');
         })
     }

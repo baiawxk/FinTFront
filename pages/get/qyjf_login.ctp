@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="page no-toolbar">
     <!-- page-content has additional login-screen content -->
     <div class="page-content login-screen-content">
       <div class="login-screen-title">权盈金服</div>
@@ -74,6 +74,7 @@ return {
         return ;
       }
       validSMS($.trim(phonePin)).then(function() {
+        app.loginScreen.close('.login-screen');
         mainView.router.navigate('/tabPage');
       },function(data) {
         var msg = (data && data['msg']) ? data['msg']:'服务器正忙，请稍后重试';

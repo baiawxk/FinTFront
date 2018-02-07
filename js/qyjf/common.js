@@ -88,7 +88,7 @@ function validSMS(phonePin) {
 }
 
 function getPersonInfo() {
-	var url = 'http://option.fintgroup.com/myhome/index/json';
+	var url = 'http://option.fintgroup.com/users/amount_info';
 	return getJSON(url);
 }
 
@@ -97,7 +97,7 @@ function parseAPIJSONStr(data) {
 	if(typeof data ==="string")
 	{
 		try{
-			obj = JSON.parse(data);
+			obj = $.parseJSON(data);
 		}catch(e){
 			obj = {};
 		}
