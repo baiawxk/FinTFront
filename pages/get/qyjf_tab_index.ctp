@@ -1,23 +1,23 @@
 <template>
   <div data-page="index" class="page">
-    <!-- Top Navbar-->
-    <!-- /End of Top Navbar-->
-    <div class="page-content">
-      <div class="block">
+    <div class="tabs-swipeable-wrap">
+      <div class="tabs">
+        <div class="page-content tab tab-active" id="page1">
+          <div class="block">
             <div class="text-align-left">
-              您好，<span id="userName">--</span>
+              您好，尊敬的<span id="userName">--</span>
             </div>
           </div>
-          <div class="block block-strong inset" style="background-color: #FFD966;color:black;">
+          <div class="block block-strong inset">
             <br>
             <br>
             <div class="text-align-center">
-              参考总市值：<span id="totalBal">--</span>
+              最近登录：<span id="lastLogin">--</span>
             </div>
             <br>
             <br>
           </div>
-          <div class="block">
+          <div class="block block-strong inset">
             <div class="list">
               <ul>
                 <li>
