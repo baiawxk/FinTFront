@@ -3,7 +3,52 @@
     <!-- Top Navbar-->
     <!-- /End of Top Navbar-->
     <div class="page-content">
-      <p>Other content goes here index</p>
+      <div class="block">
+            <div class="text-align-left">
+              您好，<span id="userName">--</span>
+            </div>
+          </div>
+          <div class="block block-strong inset" style="background-color: #FFD966;color:black;">
+            <br>
+            <br>
+            <div class="text-align-center">
+              参考总市值：<span id="totalBal">--</span>
+            </div>
+            <br>
+            <br>
+          </div>
+          <div class="block">
+            <div class="list">
+              <ul>
+                <li>
+                  <div class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                      <div class="item-title">我的账户</div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                      <div class="item-title">交易记录</div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                      <div class="item-title">订单</div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="block text-align-center" id="lastLogin">
+          </div>
     </div>
   </div>
 </template>

@@ -61,27 +61,27 @@
     },
     routes: [{
         path: '/tabPage',
-        componentUrl: '/pages/get/qyjf_tab_index',
+        componentUrl: '/pages/get/qyjf_tab_index.ctp',
       },
       {
         path: '/tradeIndex',
-        componentUrl: '/pages/get/qyjf_tab_trade',
+        componentUrl: '/pages/get/qyjf_tab_trade.ctp',
       },
       {
         path: '/StockIndex',
-        componentUrl: '/pages/get/qyjf_tab_stocks',
+        componentUrl: '/pages/get/qyjf_tab_stocks.ctp',
       },
       {
         path: '/AccountIndex',
-        componentUrl: '/pages/get/qyjf_tab_account',
+        componentUrl: '/pages/get/qyjf_tab_account.ctp',
       },
       {
         path: '/checkLogin',
-        componentUrl: '/pages/get/qyjf_check_login',
+        componentUrl: '/pages/get/qyjf_check_login.ctp',
       },
       {
         path: '/login',
-        componentUrl: '/pages/get/qyjf_login',
+        componentUrl: '/pages/get/qyjf_login.ctp',
       }
     ],
   });
