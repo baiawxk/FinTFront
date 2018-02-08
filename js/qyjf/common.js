@@ -98,8 +98,15 @@ function getOrderInfo(){
 
 }
 
-function getStockInfo(stockCode){
+/*function getStockName(stockCode){
 	var url = 'http://option.fintgroup.com/app/get_detail_by_code/'+stockCode;
+	return mydata;
+}*/
+
+function getStockName(stockCode){
+    var url = 'http://option.fintgroup.com/app/get_detail_by_code/'+stockCode;
+	
+
 	return getJSON(url);
 }
 
