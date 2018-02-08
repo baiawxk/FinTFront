@@ -133,3 +133,4 @@ function parseAPIJSONStr(data) {
 function qAlert(msg) {
 	app.dialog.alert(msg,_appTitle);
 }
+
