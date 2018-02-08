@@ -29,7 +29,7 @@
       <div class="view view-main" data-name="main">
         <div class="navbar">
           <div class="navbar-inner">
-            <div class="text-align-center">权盈金服</div>
+            <div class="text-align-center"">权盈金服</div>
           </div>
         </div>
         <div class="toolbar tabbar tabbar-labels">

@@ -92,6 +92,19 @@ function getPersonInfo() {
 	return getJSON(url);
 }
 
+function getOrderInfo(){
+	var url = 'http://option.fintgroup.com/users/get_trading_list';
+	return getJSON(url);
+
+}
+
+function getStockInfo(stockCode){
+	var url = 'http://option.fintgroup.com/app/get_detail_by_code/'+stockCode;
+	return getJSON(url);
+}
+
+
+
 function parseAPIJSONStr(data) {
 	var obj = {};
 	if(typeof data ==="string")
