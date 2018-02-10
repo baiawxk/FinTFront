@@ -29,7 +29,7 @@
       <div class="view view-main" data-name="main">
         <div class="navbar">
           <div class="navbar-inner">
-            <div class="text-align-center"">权盈金服</div>
+            <div class="center">权盈金服</div>
           </div>
         </div>
         <div class="toolbar tabbar tabbar-labels">
@@ -61,35 +61,51 @@
     },
     routes: [{
         path: '/tabPage',
-        componentUrl: '/pages/get/qyjf_tab_index.ctp',
+        componentUrl: '/pages/get/qyjf_tab_index',
       },
       {
         path: '/tradeIndex',
-        componentUrl: '/pages/get/qyjf_tab_trade.ctp',
+        componentUrl: '/pages/get/qyjf_tab_trade',
       },
       {
         path: '/StockIndex',
-        componentUrl: '/pages/get/qyjf_tab_stocks.ctp',
+        componentUrl: '/pages/get/qyjf_tab_stocks',
       },
       {
         path: '/AccountIndex',
-        componentUrl: '/pages/get/qyjf_tab_account.ctp',
+        componentUrl: '/pages/get/qyjf_tab_account',
       },
       {
         path: '/checkLogin',
-        componentUrl: '/pages/get/qyjf_check_login.ctp',
+        componentUrl: '/pages/get/qyjf_check_login',
       },
       {
         path: '/login',
-        componentUrl: '/pages/get/qyjf_login.ctp',
+        componentUrl: '/pages/get/qyjf_login',
       },
       {
         path: '/recharge',
-        componentUrl: '/pages/get/qyjf_recharge.ctp',
+        componentUrl: '/pages/get/qyjf_recharge',
       },
       {
         path: '/reflect',
-        componentUrl: '/pages/get/qyjf_reflect.ctp',
+        componentUrl: '/pages/get/qyjf_reflect',
+      },
+      {
+        path: '/firstLogin',
+        componentUrl: '/pages/get/qyjf_first_login',
+      },
+      {
+        path: '/fistAddInfo',
+        componentUrl: '/pages/get/qyjf_first_add_person_info',
+      },
+      {
+        path: '/addBankInfo',
+        componentUrl: '/pages/get/qyjf_add_bankinfo',
+      },
+      {
+        path: '/investDoc',
+        componentUrl: '/pages/get/qyjf_invest_doc',
       }
     ],
   });
@@ -100,8 +116,18 @@
   $$('.view-main').hide();
   var mainView = app.views.create('.view-main');
   isLogin()
-    .then(function() {
-      mainView.router.navigate('/tabPage');
+    .then(getLoginTimes)
+    .then(function(data) {
+      var status = data['status'];
+      var msg = data['msg'];
+      console.log('===getLoginTimes===', data);
+      var times = _.parseInt(msg, 10);
+      if (times < 1) {
+        // mainView.router.navigate('/tabPage');
+        mainView.router.navigate('/firstLogin');
+      } else {
+        mainView.router.navigate('/tabPage');
+      }
     }, function() {
       // mainView.router.navigate('/tabPage');
       app.loginScreen.open('.login-screen');

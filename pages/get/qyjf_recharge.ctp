@@ -1,5 +1,5 @@
 <template>
-  <div class="page no-toolbar no-navbar">
+  <div class="page no-toolbar1 no-navbar">
     <!-- page-content has additional login-screen content -->
     <div class="page-content">
       <div class="navbar">
@@ -19,7 +19,7 @@
               <div class="item-inner">
                 <div class="item-title item-label">充值金额</div>
                 <div class="item-input-wrap">
-                  <input type="number" name="phoneNo" placeholder="">
+                  <input type="number" name="money" id="money" placeholder="">
                   <span class="input-clear-button"></span>
                 </div>
               </div>
@@ -40,8 +40,34 @@
 <script>
 return {
   methods: {
-    recharge:function() {
-      qAlert('待开发')
+    recharge: function() {
+      const self = this;
+      let money = self.$el.find('#money').val();
+      let num = parseInt(money, 10);
+      if($.trim(money)==="" )
+      {
+        qAlert('请输入充值金额');
+        return;
+      }
+      if (num <= 0) {
+        qAlert('请输入合法的数值');
+        return;
+      } else {
+        addCapital(num).then(function(data) {
+          var status = data['status'];
+          var msg = data['msg'];
+          if (status === true) {
+            qAlert('充值成功').on('close', function() {
+              mainView.router.navigate('/AccountIndex');
+            })
+          } else
+            qAlert('充值失败:' + msg);
+        }, function(data) {
+          var status = data['status'];
+          var msg = data['msg'];
+          qAlert('充值失败');
+        })
+      }
     }
   },
   on: {

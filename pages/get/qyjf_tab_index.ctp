@@ -18,37 +18,16 @@
             <br>
           </div>
           <div class="block block-strong inset">
-            <div class="list">
-              <ul>
-                <li>
-                  <div class="item-content">
-                    <div class="item-media"><i class="icon icon-f7"></i></div>
-                    <div class="item-inner">
-                      <div class="item-title">我的账户</div>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="item-content">
-                    <div class="item-media"><i class="icon icon-f7"></i></div>
-                    <div class="item-inner">
-                      <div class="item-title">交易记录</div>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="item-content">
-                    <div class="item-media"><i class="icon icon-f7"></i></div>
-                    <div class="item-inner">
-                      <div class="item-title">订单</div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
+            <br>
+            <br>
+            <div class="text-align-center">
+              参考总市值：<span id="totalBal">--</span>
             </div>
+            <br>
+            <br>
           </div>
-          <div class="block text-align-center" id="lastLogin">
-          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -56,10 +35,8 @@
 return {
   methods: {
     confirmterms: function() {
-
       qAlert("请确认");
       return;
-
     },
     initPersonInfo: function() {
       console.log('initPersonInfo');

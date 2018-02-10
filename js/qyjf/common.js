@@ -41,6 +41,11 @@ function isLogin() {
 	})
 }
 
+function getLoginTimes() {
+	var url = "http://option.fintgroup.com/users/get_login_times";
+	return getJSON(url);
+}
+
 function sendSMS(phoneNo) {
 	var url = 'http://option.fintgroup.com/users/send_sms_code/'+phoneNo;
 	return getJSON(url).then(function(data) {
@@ -61,6 +66,29 @@ function sendSMS(phoneNo) {
 		return d.promise();	
 	},function(error) {
 		console.log('sendSMS','error',error);
+	})
+}
+
+function addCapital(value) {
+	var url = 'http://option.fintgroup.com/users/add_capital/'+value;
+	return getJSON(url).then(function(data) {
+		console.log('addCapital','data',data);
+		var d = $.Deferred();
+		if(data==null)d.reject();
+		else
+		{
+			if(data && data['status']==true)
+			{
+				d.resolve(data);
+			}
+			else
+			{
+				d.reject(data);
+			}
+		}
+		return d.promise();	
+	},function(error) {
+		console.log('addCapital','error',error);
 	})
 }
 
@@ -92,26 +120,6 @@ function getPersonInfo() {
 	return getJSON(url);
 }
 
-function getOrderInfo(){
-	var url = 'http://option.fintgroup.com/users/get_trading_list';
-	return getJSON(url);
-
-}
-
-/*function getStockName(stockCode){
-	var url = 'http://option.fintgroup.com/app/get_detail_by_code/'+stockCode;
-	return mydata;
-}*/
-
-function getStockName(stockCode){
-    var url = 'http://option.fintgroup.com/app/get_detail_by_code/'+stockCode;
-	
-
-	return getJSON(url);
-}
-
-
-
 function parseAPIJSONStr(data) {
 	var obj = {};
 	if(typeof data ==="string")
@@ -131,6 +139,5 @@ function parseAPIJSONStr(data) {
 
 
 function qAlert(msg) {
-	app.dialog.alert(msg,_appTitle);
+	return app.dialog.alert(msg,_appTitle);
 }
-
