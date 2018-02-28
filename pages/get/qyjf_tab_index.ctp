@@ -1,82 +1,41 @@
 <template>
-  <div data-page="index" class="page">
-    <div class="tabs-swipeable-wrap">
-      <div class="tabs">
-        <div class="page-content tab tab-active" id="page1">
-          <div class="block">
-            <div class="text-align-left">
-              您好，尊敬的<span id="userName">--</span>
-            </div>
-          </div>
-          <div class="block block-strong inset">
-            <br>
-            <br>
-            <div class="text-align-center">
-              最近登录：<span id="lastLogin">--</span>
-            </div>
-            <br>
-            <br>
-          </div>
-          <div class="block block-strong inset">
-            <br>
-            <br>
-            <div class="text-align-center">
-              参考总市值：<span id="totalBal">--</span>
-            </div>
-            <br>
-            <br>
+  <div data-page="index" id="index" class="page">
+    <div class="page-content" id="page1">
+      <div class="block">
+        <p>您好，尊敬的{{userName}}</p>
+      </div>
+      <div class="block text-align-center">
+        <img src="{{photoSrc}}" height="100" width="100">
+      </div>
+      <div class="block block-strong inset">
+        <br>
+        <div class="text-align-center">
+          参考总市值：{{totalMarketValue}}
+        </div>
+        <br>
+      </div>
+      {{#if hasLastLoginInfo}}
+      <div class="block">
+        <div class="block-footer text-align-center">
+          <div id="lastLogin">
+            <p>上次登录IP：{{lastIp}}</p>
+            <p>上次登录时间：{{lastTime}}</p>
+            <p>{{lastChannel}}</p>
           </div>
         </div>
       </div>
+      {{/if}}
     </div>
   </div>
 </template>
 <script>
 return {
   methods: {
-    confirmterms: function() {
-      qAlert("请确认");
-      return;
-    },
-    initPersonInfo: function() {
-      console.log('initPersonInfo');
-      const self = this;
-      getPersonInfo().then(function(data) {
-        let msg = data['msg'];
-        if (msg != null) {
-          msg = JSON.parse(msg);
-        }
-        let amount = msg['amount'];
-        let name = "";
-        if (amount != null) {
 
-        }
-        let user_info = msg['user_info'];
-        if (user_info != null) {
-          name = user_info['name'];
-          if (name != null) {
-            self.$el.find('#userName').text(name);
-          }
-        }
-        return;
-        const logs = data['logs'];
-        let lastStr = "";
-        self.$el.find('#totalBal').text(count_a);
-        if (logs != null && logs.length > 0) {
-          const last = logs[0];
-          lastStr = `最近登陆：${last.ip} ${last.msg}`;
-        }
-        self.$el.find('#lastLogin').text(lastStr);
-        console.log('done', name, user, count_a, logs, lastStr);
-      }, function(error) {
-        console.log('fali', error);
-      })
-    }
   },
   on: {
-    pageInit: function() {
-      console.log('tabPage');
-      this.initPersonInfo();
+    tabInit:function() {
+      
     }
   }
 }

@@ -2,9 +2,9 @@
   <div class="page no-toolbar " data-name="first_login">
     <div class="page-content">
       <div class="block">
-        <div class="text-align-left">
-          您好，尊敬的<span id="userName">--</span>
-        </div>
+         <div class="text-align-left">
+          请补全以下信息: 
+         </div>
       </div>
       <div class="list">
         <ul>
@@ -22,6 +22,15 @@
               <div class="item-title item-label">电子邮件</div>
               <div class="item-input-wrap">
                 <input type="email" name="email" id="email" placeholder="">
+                <span class="input-clear-button"></span>
+              </div>
+            </div>
+          </li>
+          <li class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">邀请码</div>
+              <div class="item-input-wrap">
+                <input type="number" name="inviteCode" id="inviteCode" placeholder="">
                 <span class="input-clear-button"></span>
               </div>
             </div>
@@ -46,60 +55,93 @@ return {
       self.$el.find('#email').val('');
     },
     confirm: function() {
+      let self = this;
+      let name = self.$el.find('#name').val();
+      let email = self.$el.find('#email').val();
+      if ($.trim(name) === "") {
+        qAlert('请输入姓名');
+        return;
+      }
+      if ($.trim(email) === "") {
+        qAlert('请输入邮箱');
+        return;
+      }
+      self.saveInfo()
+        .done(function() {
+          qAlert('资料更新成功').on('close', function() {
+            mainView.router.navigate('/tabPage');
+          })
+        })
+        .fail(function(data) {
+          let msg = data['msg'];
+          qAlert(msg);
+        })
+    },
+    saveInfo: function() {
+      let d = $.Deferred();
       const self = this;
       let name = self.$el.find('#name').val();
-      let email= self.$el.find('#email').val();
-      if($.trim(name)==="")
-      {
-        qAlert('请输入姓名');
-        return ;
-      }
-      if($.trim(email)==="")
-      {
-        qAlert('请输入邮箱');
-        return ;  
-      }
-      mainView.router.navigate('/tabPage');
-    },
-    initPersonInfo: function() {
-      console.log('initPersonInfo');
-      const self = this;
-      getPersonInfo().then(function(data) {
-        let msg = data['msg'];
-        if (msg != null) {
-          msg = JSON.parse(msg);
-        }
-        let amount = msg['amount'];
-        let name = "";
-        if (amount != null) {
+      let email = self.$el.find('#email').val();
+      let inviteCode = self.$el.find('#inviteCode').val();
 
-        }
-        let user_info = msg['user_info'];
-        if (user_info != null) {
-          name = user_info['name'];
-          if (name != null) {
-            self.$el.find('#userName').text(name);
-          }
-        }
-        return;
-        const logs = data['logs'];
-        let lastStr = "";
-        self.$el.find('#totalBal').text(count_a);
-        if (logs != null && logs.length > 0) {
-          const last = logs[0];
-          lastStr = `最近登陆：${last.ip} ${last.msg}`;
-        }
-        self.$el.find('#lastLogin').text(lastStr);
-        console.log('done', name, user, count_a, logs, lastStr);
-      }, function(error) {
-        console.log('fali', error);
-      })
+      self.saveInviteCode(inviteCode)
+        .then(function() {
+          return self.saveName(name);
+        })
+        .then(function() {
+          return self.saveEmail(email);
+        })
+        .then(d.resolve, d.reject);
+      return d.promise();
+    },
+    rejectHandle:function(data) {
+      let d = $.Deferred();
+      let status = data['status'];
+      if(status===false)
+      {
+        d.reject(data);
+      }
+      else
+      {
+        d.resolve(data);
+      }
+      return d.promise();
+    },
+    saveInviteCode: function(inviteCode) {
+      let self = this;
+      if (inviteCode != null && $.trim(inviteCode)!=="") {
+        let url = `${_apiHost}/users/save_inv_code/${inviteCode}`;
+        return getJSON(url).then(self.rejectHandle)
+      } else {
+        var d = $.Deferred();
+        d.resolve();
+        return d.promise();
+      }
+    },
+    saveName: function(name) {
+      let self = this;
+      let url = `${_apiHost}/users/save_name/${name}`
+      return getJSON(url).then(self.rejectHandle)
+    },
+    saveEmail: function(email) {
+      let self = this;
+      let url = `${_apiHost}/users/save_email/${email}`;
+      return getJSON(url).then(self.rejectHandle)
+    },
+    checkIfHasInviteCode: function() {
+      let self = this;
+      let el = self.$el;
+      let inviteCode = localStorage.getItem('inviteCode');
+      if (inviteCode != null) {
+        let inviteCodeInput = el.find('#inviteCode');
+        inviteCodeInput.val(inviteCode);
+      }
     }
   },
   on: {
     pageInit: function() {
-      console.log('tabPage');
-      this.initPersonInfo();
+      let self = this;
+      self.checkIfHasInviteCode();
     }
   }
 }

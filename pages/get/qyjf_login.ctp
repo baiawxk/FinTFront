@@ -2,7 +2,7 @@
   <div class="page no-toolbar">
     <!-- page-content has additional login-screen content -->
     <div class="page-content login-screen-content">
-      <div class="login-screen-title">权盈金服</div>
+      <div class="login-screen-title"><img src="/img/qyjf/brucezhao10000qyjf01login.png" height="200" width="200"></div>
       <!-- Login form -->
       <div class="list">
         <ul>
@@ -24,6 +24,8 @@
               </div>
             </div>
           </li>
+          <li class="item-content item-input">
+          </li>
         </ul>
       </div>
       <div class="list">
@@ -31,6 +33,8 @@
           <li>
             <a href="#" class="item-link list-button" @click="sendSMS">发送验证码</a>
           </li>
+        </ul>
+        <ul>
           <li>
             <a href="#" class="item-link list-button" @click="login">登陆</a>
           </li>
@@ -38,9 +42,9 @@
         <div class="block-footer text-align-center">
           <label class="checkbox">
             <!-- checkbox input -->
-            <input type="checkbox" id="agreeSts" checked="checked">
+            <input type="checkbox" id="agreeSts">
             <!-- checkbox icon -->
-            <i class="icon-checkbox"></i> 
+            <i class="icon-checkbox"></i>
           </label>
           <a href="/investDoc"><u>我已阅读并同意投资协议</u></a>
         </div>
@@ -80,23 +84,18 @@ return {
         qAlert("请输入短信验证码");
         return;
       }
-      if(agreeSts[0].checked===false)
-      {
+      if (agreeSts[0].checked === false) {
         qAlert('请先阅读投资协议')
-        return ;
+        return;
       }
       validSMS($.trim(phonePin)).then(function() {
-        getLoginTimes().then(function(data) {
+        needUpdateInfo().then(function(data) {
           app.loginScreen.close('.login-screen');
-          var status = data['status'];
-          var msg = data['msg'];
-          console.log('===getLoginTimes===', data);
-          var times = _.parseInt(msg, 10);
-          if (times < 1) {
-            // mainView.router.navigate('/tabPage');
+          let status = data['status'];
+          if (status === false) {
             mainView.router.navigate('/firstLogin');
           } else {
-            mainView.router.navigate('/tabPage');
+            mainView.router.navigate('/tabPage', { animate: false });
           }
         }, function() {
           qAlert('服务器正忙，请稍后重试');

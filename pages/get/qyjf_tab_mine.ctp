@@ -12,6 +12,11 @@
             <div class="text-align-left">
               您好，<span id="userName">--</span>
             </div>
+
+<div class="block">
+<img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com">
+</div>
+
           </div>
           <div class="block block-strong inset" style="background-color: #FFD966;color:black;">
             <br>
